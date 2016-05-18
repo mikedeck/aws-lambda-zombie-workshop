@@ -202,7 +202,7 @@ In this section you'll configure an Elasticsearch Service domain to index chat m
 
 1\. Select the Amazon Elasticsearch icon from the main console page.
 
-2\. Create a new Amazon Elasticsearch domain. Provide it a name such as "zombiemessages". Click **Next**.
+2\. Create a new Amazon Elasticsearch domain. Provide it a name such as "yournamezombiemessages". Ensure the name is unique within your account. Click **Next**.
 
 3\. On the **Configure Cluster** page, leave the default cluster settings and click **Next**.
 
@@ -223,9 +223,9 @@ In this section you'll configure an Elasticsearch Service domain to index chat m
 
 11\. Skip the Blueprint section by selecting the Skip button in the bottom right.
 
-12\. Fill in "ZombieWorkshopSearchIndexing" as the Name of the function. Keep the runtime as Node.js. You can set a description for the function if you'd like.
+12\. Fill in "[StackName]ZombieWorkshopSearchIndexing" as the Name of the function. Keep the runtime as Node.js. You can set a description for the function if you'd like.
 
-13\. Paste in the code from the ZombieWorkshopSearchIndexing.js file provided to you.
+13\. Paste in the code from the [ZombieWorkshopSearchIndexing.js](ElasticSearchLambda/ZombieWorkshopSearchIndexing.js) file in this repository.
 
 14\. On line 7 in the code provided, replace ENDPOINT_HERE with the Elasticsearch endpoint created in step 8\. Make sure it starts with https://
 
@@ -314,9 +314,9 @@ In this section, you'll create a slack group and wire it up to the Chat Service.
 
 8\. Skip past the blueprints page as we will not be using one.
 
-9\. Name the function **SlackService**. Now navigate to the GitHub repo for this workshop, or the location where you downloaded the GitHub files to your local machine.
+9\. Name the function **[StackName]SlackService**. Now navigate to the GitHub repo for this workshop, or the location where you downloaded the GitHub files to your local machine.
 
-10\. Open the **SlackService.js** file from the GitHub repo, found in the slack folder. Copy the entire contents of this js file into the Lambda inline edit window.
+10\. Open the [**SlackService.js**](Slack/SlackService.js) file from the GitHub repo, found in the slack folder. Copy the entire contents of this js file into the Lambda inline edit window.
 
 11\. Input the Slack Token string that you copied earlier into the function. You should copy the Token string from Slack into the "token" variable in the Lambda function, replacing the string **INSERT YOUR TOKEN FROM SLACK HERE** with your own token.
 
