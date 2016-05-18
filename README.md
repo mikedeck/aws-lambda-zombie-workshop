@@ -22,7 +22,7 @@ The [Zombie Microservices Workshop](http://aws.amazon.com/events/zombie-microser
 ### Let's Begin! Launch the CloudFormation Stack
 1\. To begin this workshop, click the 'Deploy to AWS' button below.
 
-[![Launch Zombie Workshop Stack into Oregon with CloudFormation](/Images/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?templateURL=https://s3-us-west-2.amazonaws.com/esri-zombie-workshop/CreateZombieWorkshop.json){:target="_blank"}
+[![Launch Zombie Workshop Stack into Oregon with CloudFormation](/Images/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?templateURL=https://s3-us-west-2.amazonaws.com/esri-zombie-workshop/CreateZombieWorkshop.json)
 
 2\. On the "Specify Details" page, enter a unique stack name.
 
