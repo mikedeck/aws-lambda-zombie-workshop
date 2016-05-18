@@ -9,6 +9,7 @@ var zombieResourceId = '';
 var talkerResourceId = '';
 var twilioResourceId = '';
 
+var stackname;
 var getmessagearn;
 var postmessagearn;
 var iamRole;
@@ -28,6 +29,8 @@ module.exports = {
         theContext = context;
 
         region = event.ResourceProperties.region;
+
+				stackname = event.ResourceProperties.stackname;
         getmessagearn = event.ResourceProperties.getmessagelambdaapiuri;
         postmessagearn = event.ResourceProperties.postmessagelambdaapiuri;
         iamRole = event.ResourceProperties.iamrole;
@@ -71,7 +74,7 @@ function createRestAPI(callback) {
 	console.log('Creating REST API');
 
 	var params = {
-        name: 'Zombie Workshop API Gateway',
+        name: stackname + ' - Zombie Workshop API',
         description: apigatewayuuid
     };
     apigateway.createRestApi(params, function(err, data) {
@@ -79,8 +82,8 @@ function createRestAPI(callback) {
             restAPIId = data.id;
             return callback(null)
         }
-        else { 
-            callback(err); 
+        else {
+            callback(err);
         }
     });
 }
@@ -95,8 +98,8 @@ function getRootResourse(callback){
             currentResourceId = data.items[0].id;      // successful response
             return callback(null);
         }
-        else { 
-            callback(err); 
+        else {
+            callback(err);
         }
     });
 }
@@ -131,7 +134,7 @@ function createMessagesResource(callback) {
             return callback(null);
         }
         else {
-            callback(err); 
+            callback(err);
         }
     });
 }
@@ -163,13 +166,13 @@ function createMethods(callback) {
 						else{ callback(err); }
 					});
                 }
-				else { 
+				else {
                     callback(err);
                 }
             });
         }
-		else { 
-            callback(err); 
+		else {
+            callback(err);
         }
     });
 }
@@ -205,18 +208,18 @@ function createMethodResponses(callback) {
                         if(!err) {
                             callback(null);
                         }
-                        else { 
+                        else {
                             callback(err);
                         }
                     });
                 }
-                else { 
-                    callback(err); 
+                else {
+                    callback(err);
                 }
             });
         }
-        else { 
-            callback(err); 
+        else {
+            callback(err);
         }
     });
 }
@@ -239,7 +242,7 @@ function createIntegrations(callback) {
             params.uri = postmessagearn;
             params.requestTemplates = {
             "application/json": '{"message": $input.json(\'$.message\'), "name": $input.json(\'$.name\'), "channel" : $input.json(\'$.channel\') }'
-            } 
+            }
             apigateway.putIntegration(params, function(err, data) {
                 if (!err) {
                     console.log('Creating OPTIONS Integration');
@@ -253,18 +256,18 @@ function createIntegrations(callback) {
                         if (!err) {
                             callback(null);
                         }
-                        else { 
-                            callback(err); 
+                        else {
+                            callback(err);
                         }
                     });
                 }
-                else { 
-                    callback(err); 
+                else {
+                    callback(err);
                 }
             });
         }
-        else { 
-            callback(err); 
+        else {
+            callback(err);
         }
     });
 }
@@ -318,13 +321,13 @@ function createIntegrationResponses(callback) {
                         if(!err) {
                             callback(null);
                         }
-                        else { 
-                            callback(err); 
+                        else {
+                            callback(err);
                         }
                     });
                 }
                 else {
-                    callback(err); 
+                    callback(err);
                 }
             });
         }
@@ -443,7 +446,7 @@ function createTalkerMethods(callback) {
                 }
             });
         }
-        else { 
+        else {
             callback(err);
         }
     });
@@ -499,7 +502,7 @@ function createTalkerIntegrations(callback) {
                 }
 			});
         }
-        else { 
+        else {
             callback(err);
         }
     });
@@ -534,13 +537,13 @@ function createTwilioMethods(callback) {
     };
 	apigateway.putMethod(params, function(err, data) {
         if(!err) {
-            console.log('Created Twilio POST Method');     
+            console.log('Created Twilio POST Method');
             return callback(null);
         }
         else {
-            callback(err); 
+            callback(err);
         }
-    });        
+    });
 }
 
 function createTwilioMethodResponses(callback) {
@@ -577,7 +580,7 @@ function createTwilioIntegrations(callback) {
         uri: null,
         requestTemplates: {
             "application/x-www-form-urlencoded": '{"postBody" : "$input.path(\'$\')"}'
-        }       
+        }
     };
     apigateway.putIntegration(params, function(err, data) {
         if (!err) {
