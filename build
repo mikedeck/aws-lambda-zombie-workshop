@@ -1,0 +1,25 @@
+#!/bin/bash
+
+mkdir target
+
+pushd CloudFormation/CustomResources/CopyS3Files
+zip ../../../target/S3GetFilesFunction.zip S3GetFilesFunction.js
+popd
+
+pushd CloudFormation/CustomResources/APIGatewayCreateScript/src/
+zip -r ../../../../target/WK305_Gateway.zip *
+popd
+
+pushd ChatServiceLambdaFunctions
+zip ../target/ZombiePostMessage.zip ZombiePostMessage.js
+popd
+
+pushd ChatServiceLambdaFunctions
+zip ../target/ZombieGetMessages.zip ZombieGetMessages.js
+popd
+
+pushd CloudFormation/CustomResources/IamUsers
+zip -r ../../../target/IamUsers.zip *
+popd
+
+cp CloudFormation/CreateZombieWorkshop.json target
