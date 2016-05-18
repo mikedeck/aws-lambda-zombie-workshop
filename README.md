@@ -157,15 +157,15 @@ In this section, you’ll wire together Twilio with an existing API Gateway endp
 
 17\. On the **Method Execution** screen for the "POST" method, the "Integration Request" box should show a type of **MOCK** for your /twilio resource.
 
-18\. You will now change the **Integration Request** so that instead of integrating with a Mock integration, it will integrate with your TwilioProcessing function. Click **Integration Request**. On the Integration Request screen, change the "Integration type" radio button to **Lambda Function**. In the "Lambda Region" dropdown, select **us-west-2** which is the Region where your Lambda function resides. For the **Lambda Function**, begin typing "TwilioProcessing" and the autofill should display your function. Select **TwilioProcessing** from the autofill. Click **Save**.
+18\. You will now change the **Integration Request** so that instead of integrating with a Mock integration, it will integrate with your TwilioProcessing function. Click **Integration Request**. On the Integration Request screen, change the "Integration type" radio button to **Lambda Function**. In the "Lambda Region" dropdown, select **us-west-2** which is the Region where your Lambda function resides. For the **Lambda Function**, begin typing your Twilio processing function's name and the autofill should display your function. Select your function from the autofill. Click **Save**.
 
 19\. After clicking **Save**, you will be brought back to the Method Execution page for your "POST" method. Return back to the **Integration Request** screen so that you can configure a Mapping Template. To do this, click **Integration Request** in the Method Execution screen.
 
 20\. Twilio sends data from their API with a content-type of "application/x-www-form-urlencoded", but Lambda requires the content-type to be "application/json". You will configure a Mapping Template so that API Gateway converts the content type of incoming messages into JSON before executing your backend Lambda TwilioProcessing function.
 
-21\. On the Integration Request screen for your /twilio POST method, expand the **Body Mapping Templates** section and click **Add mapping template**. In the textbox for "Content-Type", input **application/x-www-form-urlencoded** and click the little checkmark button to continue. Once you have clicked the little checkbox, a new section will appear on the right side of the screen with a dropdown for **Generate Template**. Click that dropdown and select **Method Request Passthrough**.
+21\. On the Integration Request screen for your /twilio POST method, expand the **Body Mapping Templates** section and click **Add mapping template**. In the textbox for "Content-Type", input **application/x-www-form-urlencoded** and click the little checkmark button to continue.
 
-22\. A "Template" text editor window will appear. In this section you will input a piece of VTL transformation logic to convert the incoming Twilio data to a JSON object. In this text editor, **delete all of the pre-filled content** and copy the following code into the editor.
+22\. A "Template" text editor window will appear. In this section you will input a piece of VTL transformation logic to convert the incoming Twilio data to a JSON object. Copy the following code into the editor.
 
 ```{"postBody" : "$input.path('$')"}```
 
@@ -178,8 +178,7 @@ After copying the code into the editor, click the "Save" button. You have now se
 
 25\. Click **Add mapping template** similar to the way you did this in the earlier steps for the Integration Request section.
 
-26\. In the "Content-Type" text box, insert **application/xml** and click the little black checkmark to continue. Similar to the steps done earlier, we are going to copy VTL mapping logic to convert the response data to XML from JSON. This will result in your /twilio POST method responding to requests with XML format. After you have created the new content-type, a new section will appear on the right side of the screen with a dropdown for **Generate Template**. Click that dropdown and select **Method Request Passthrough**.
-In the text editor, delete all the code already in there and copy the following into the editor:
+26\. In the "Content-Type" text box, insert **application/xml** and click the little black checkmark to continue. Similar to the steps done earlier, we are going to copy VTL mapping logic to convert the response data to XML from JSON. This will result in your /twilio POST method responding to requests with XML format. Copy the following into the editor:
 
 ``` #set($inputRoot = $input.path('$'))<?xml version="1.0" encoding="UTF-8"?><Response><Message><Body>$inputRoot</Body></Message></Response> ```
 
