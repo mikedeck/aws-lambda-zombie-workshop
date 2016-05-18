@@ -22,7 +22,7 @@ The [Zombie Microservices Workshop](http://aws.amazon.com/events/zombie-microser
 ### Let's Begin! Launch the CloudFormation Stack
 1\. To begin this workshop, click the 'Deploy to AWS' button below.
 
-[![Launch Zombie Workshop Stack into Oregon with CloudFormation](/Images/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?templateURL=https://s3-us-west-2.amazonaws.com/esri-zombie-workshop/CreateZombieWorkshop.json)
+[![Launch Zombie Workshop Stack into Oregon with CloudFormation](/Images/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?templateURL=https://s3-us-west-2.amazonaws.com/esri-zombie-workshop/CreateZombieWorkshop.json){:target="_blank"}
 
 2\. On the "Specify Details" page, enter a unique stack name.
 
@@ -56,7 +56,7 @@ The application uses [CORS](http://docs.aws.amazon.com/AmazonS3/latest/dev/cors.
 1\. Select the API Gateway Service from the main console page
 ![API Gateway in Management Console](/Images/Typing-Step1.png)
 
-2\. Select the Zombie Workshop API Gateway
+2\. Select the Zombie Workshop API Gateway with your stack name.
 
 3\. Go into the /zombie/talkers/GET method flow
 ![GET Method](/Images/Typing-Step3.png)
@@ -67,7 +67,7 @@ The application uses [CORS](http://docs.aws.amazon.com/AmazonS3/latest/dev/cors.
 
 6\. Select the us-west-2 region
 
-7\. Select the **_[CloudformationTemplateName]_**-GetTalkersFromDynamoDB-**_[XXXXXXXXXX]_** Function
+7\. Select the **_[Stack Name]_**-GetTalkersFromDynamoDB-**_[XXXXXXXXXX]_** Function
 
 8\. Select Save and Grant access for API Gateway to invoke the Lambda function.
 
@@ -79,7 +79,7 @@ The application uses [CORS](http://docs.aws.amazon.com/AmazonS3/latest/dev/cors.
 11\. Go to the /zombie/talkers/POST method by clicking the "POST" option in the resource tree on the left navigation pane.
 ![POST Method](/Images/Typing-Step11.png)
 
-12\. Perform Steps 4-10 again as you did for the GET method , but instead, select the **_[CloudformationTemplateName]_**-WriteTalkersToDynamoDB-**_[XXXXXXXXXX]_** Lambda Function for the Integration Request Lambda function.
+12\. Perform Steps 4-10 again as you did for the GET method , but instead, select the **_[Stack Name]_**-WriteTalkersToDynamoDB-**_[XXXXXXXXXX]_** Lambda Function for the Integration Request Lambda function.
 
 13\. Go to the /zombie/talkers/OPTIONS method
 
@@ -132,7 +132,7 @@ In this section, you’ll wire together Twilio with an existing API Gateway endp
 6\. Now you’ll retrieve your **/twilio** API endpoint from API Gateway and provide it to Twilio to hook up to AWS. Open the AWS Management console in a new tab, and navigate to API Gateway, as illustrated below. Be sure to leave the Twilio tab open as you’ll need it again to finish setup.
 ![API Gateway in Management Console](/Images/Twilio-Step6.png)
 
-7\. In the API Gateway console, select your API, **Zombie Workshop API Gateway**. On the left navigation tree, click "Stages".
+7\. In the API Gateway console, select your API, **[Stack Name] - Zombie Workshop API Gateway**. On the left navigation tree, click "Stages".
 ![API Gateway Resources Page](/Images/Twilio-Step7.png)
 
 8\. With "Stages" selected, expand the "Zombie Workshop Stage" by clicking the blue arrow, and select the **POST** method for the **/zombie/twilio** resource. The twilio resource is the endpoint that CloudFormation created for SMS messages from your Twilio phone number. You should see an **Invoke URL** displayed for your **/zombie/twilio** resource, as shown below.
@@ -147,7 +147,7 @@ In this section, you’ll wire together Twilio with an existing API Gateway endp
 
 12\. Click **Create a Lambda function** and select **Skip** on the blueprint screen as we will be creating a brand new function.
 
-13\. Create a name for the function, such as "TwilioProcessing". Leave the "Runtime" as **Node.js**. From the GitHub repo, open the **TwilioProcessing.js** file. Copy the entire contents from this file into the Lambda code entry section. Once you have copied the code into Lambda, scroll down to the section in the code where the "host" variable is declared. It should show a value of "INSERT YOUR API GATEWAY URL HERE EXCLUDING THE HTTPS://". Please replace this string with the URL of your **/message** POST method. Please be sure to remove the "https://" portion of the URL and the end of the URL "/ZombieWorkshopStage/zombie/message". Your final URL inputted into the code should look something like "xxxxxxxx.execute-api.us-west-2.amazonaws.com".
+13\. Enter "[Stack Name]-TwilioProcessing". You must include your stack name in order to avoid colliding with other users working in your same account. Leave the "Runtime" as **Node.js**. From the GitHub repo, open the [**TwilioProcessing.js**](Twilio/TwilioProcessing.js) file. Copy the entire contents from this file into the Lambda code entry section. Once you have copied the code into Lambda, scroll down to the section in the code where the "host" variable is declared. It should show a value of "INSERT YOUR API GATEWAY URL HERE EXCLUDING THE HTTPS://". Please replace this string with the URL of your **/message** POST method. Please be sure to remove the "https://" portion of the URL and the end of the URL "/ZombieWorkshopStage/zombie/message". Your final URL inputted into the code should look something like "xxxxxxxx.execute-api.us-west-2.amazonaws.com".
 
 14\. After you have copied the code into the Lambda inline code console and modifed the POST URL, scroll down to the **Lambda function handler and role** section. For the role, select **Basic execution role** from the dropdown and click "Allow" on the popup window to confirm the creation of the role. For this Lambda function we do not need any IAM permissions to other AWS services.
 
